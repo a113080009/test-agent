@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 破冰成功！</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 50%, #a1c4fd 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 12s ease infinite;
+      padding: 20px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 28px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, rgba(255, 154, 162, 0.25), rgba(255, 183, 178, 0.35));
+      color: #e05666;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #2d3748;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    p.subtitle {
+      font-size: 15px;
+      color: #718096;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .glow-btn {
+      position: relative;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      border: none;
+      padding: 16px 36px;
+      font-size: 17px;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 24px rgba(118, 75, 162, 0.4), 0 0 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .glow-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(118, 75, 162, 0.6), 0 0 24px rgba(102, 126, 234, 0.6);
+    }
+
+    .glow-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 4px 16px rgba(118, 75, 162, 0.4);
+    }
+
+    .result-section {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .click-count {
+      font-size: 14px;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+
+    .quote-box {
+      font-size: 16px;
+      font-weight: 500;
+      color: #4c51bf;
+      line-height: 1.5;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: rgba(102, 126, 234, 0.08);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .quote-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="badge">✦ Hello Antigravity</div>
+    <h1>Antigravity 破冰成功！</h1>
+    <p class="subtitle">點擊下方發光按鈕，開啟今天的美好靈感與滿滿動力 ✨</p>
+
+    <button id="actionBtn" class="glow-btn">點我領取鼓勵 🎁</button>
+
+    <div class="result-section">
+      <div id="counter" class="click-count">尚未點擊按鈕</div>
+      <div id="quote" class="quote-box"></div>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "每一次嘗試，都是成長的契機！✨",
+      "保持好奇心，世界會為你敞開大門！🚀",
+      "今天也是充滿無限可能的美好一天！🌸",
+      "一步一腳印，你正在打造超棒的事物！💡",
+      "代碼編織夢想，熱情點亮未來！🌟",
+      "相信自己，你的潛力遠超乎想像！🎉",
+      "探索未知的旅程，從勇敢邁出的這一步開始！🌈",
+      "休息一下再出發，靈感正在路上！☕",
+      "即使是微小的進步，也值得為自己喝采！👏"
+    ];
+
+    let count = 0;
+    let lastIndex = -1;
+
+    const btn = document.getElementById('actionBtn');
+    const counterDisplay = document.getElementById('counter');
+    const quoteDisplay = document.getElementById('quote');
+
+    btn.addEventListener('click', () => {
+      count++;
+      counterDisplay.textContent = `點擊次數：${count} 次`;
+
+      // 隨機挑選鼓勵小語（避免與上次相同）
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * quotes.length);
+      } while (quotes.length > 1 && randomIndex === lastIndex);
+      lastIndex = randomIndex;
+
+      // 切換動畫效果
+      quoteDisplay.classList.remove('show');
+      setTimeout(() => {
+        quoteDisplay.textContent = quotes[randomIndex];
+        quoteDisplay.classList.add('show');
+      }, 100);
+    });
+  </script>
+</body>
+</html>
