@@ -5,6 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antigravity 破冰成功！</title>
   <style>
+    :root {
+      /* 淺色米白模式 (預設) */
+      --bg-gradient: linear-gradient(135deg, #faf6f0 0%, #f5eee6 50%, #ede3d8 100%);
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(220, 210, 195, 0.7);
+      --card-shadow: 0 20px 40px rgba(160, 130, 100, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+      --title-color: #2d3748;
+      --subtitle-color: #718096;
+      --tag-color: #8b95a5;
+      --count-color: #4a5568;
+      --quote-bg: rgba(219, 39, 119, 0.08);
+      --quote-color: #be185d;
+      --badge-bg: linear-gradient(135deg, rgba(244, 114, 182, 0.2), rgba(192, 132, 252, 0.2));
+      --badge-color: #db2777;
+      --badge-border: rgba(244, 114, 182, 0.3);
+      --toggle-bg: rgba(0, 0, 0, 0.05);
+      --toggle-border: rgba(0, 0, 0, 0.08);
+      --toggle-color: #4a5568;
+      --divider-color: rgba(0, 0, 0, 0.06);
+    }
+
+    body.theme-dark {
+      /* 深色夜間模式 */
+      --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #16192e 50%, #1e112a 100%);
+      --card-bg: rgba(26, 32, 48, 0.88);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --card-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(168, 85, 247, 0.15);
+      --title-color: #f8fafc;
+      --subtitle-color: #94a3b8;
+      --tag-color: #64748b;
+      --count-color: #cbd5e1;
+      --quote-bg: rgba(168, 85, 247, 0.16);
+      --quote-color: #f472b6;
+      --badge-bg: rgba(236, 72, 153, 0.15);
+      --badge-color: #f472b6;
+      --badge-border: rgba(236, 72, 153, 0.3);
+      --toggle-bg: rgba(255, 255, 255, 0.1);
+      --toggle-border: rgba(255, 255, 255, 0.15);
+      --toggle-color: #f1f5f9;
+      --divider-color: rgba(255, 255, 255, 0.08);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,10 +59,11 @@
       justify-content: center;
       align-items: center;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
-      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 50%, #a1c4fd 100%);
+      background: var(--bg-gradient);
       background-size: 200% 200%;
-      animation: gradientShift 12s ease infinite;
-      padding: 20px;
+      animation: gradientShift 14s ease infinite;
+      padding: 24px;
+      transition: background 0.5s ease;
     }
 
     @keyframes gradientShift {
@@ -30,105 +73,156 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      position: relative;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
       border-radius: 28px;
-      padding: 48px 40px;
+      padding: 52px 40px 44px;
       width: 100%;
-      max-width: 460px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+      max-width: 480px;
+      box-shadow: var(--card-shadow);
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+    }
+
+    /* 右上角切換開關 */
+    .theme-toggle-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      color: var(--toggle-color);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      outline: none;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      user-select: none;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+      background: rgba(168, 85, 247, 0.15);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    .theme-toggle-btn:active {
+      transform: scale(0.96);
     }
 
     .badge {
       display: inline-block;
-      padding: 6px 14px;
-      background: linear-gradient(135deg, rgba(255, 154, 162, 0.25), rgba(255, 183, 178, 0.35));
-      color: #e05666;
+      padding: 6px 16px;
+      background: var(--badge-bg);
+      color: var(--badge-color);
+      border: 1px solid var(--badge-border);
       border-radius: 999px;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.5px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      transition: all 0.3s ease;
     }
 
     h1 {
       font-size: 28px;
       font-weight: 800;
-      color: #2d3748;
+      color: var(--title-color);
       margin-bottom: 12px;
       letter-spacing: -0.5px;
+      transition: color 0.3s ease;
     }
 
     p.subtitle {
       font-size: 15px;
-      color: #718096;
-      margin-bottom: 36px;
+      color: var(--subtitle-color);
+      margin-bottom: 32px;
       line-height: 1.6;
+      transition: color 0.3s ease;
     }
 
+    /* 紫粉漸層發光按鈕 + 懸浮放大動畫 */
     .glow-btn {
       position: relative;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 50%, #f43f5e 100%);
       color: #ffffff;
       border: none;
-      padding: 16px 36px;
+      padding: 16px 38px;
       font-size: 17px;
       font-weight: 600;
       border-radius: 999px;
       cursor: pointer;
       outline: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 24px rgba(118, 75, 162, 0.4), 0 0 16px rgba(102, 126, 234, 0.4);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      box-shadow: 0 8px 20px rgba(219, 39, 119, 0.35), 0 0 16px rgba(147, 51, 234, 0.35);
+      letter-spacing: 0.5px;
     }
 
     .glow-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 12px 32px rgba(118, 75, 162, 0.6), 0 0 24px rgba(102, 126, 234, 0.6);
+      transform: scale(1.05);
+      box-shadow: 0 16px 36px rgba(219, 39, 119, 0.5), 0 0 28px rgba(147, 51, 234, 0.55);
     }
 
     .glow-btn:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 4px 16px rgba(118, 75, 162, 0.4);
+      transform: scale(0.98);
+      box-shadow: 0 4px 16px rgba(219, 39, 119, 0.4);
+    }
+
+    /* 按鈕下方代理人生成標籤 */
+    .agent-tag {
+      font-size: 13px;
+      color: var(--tag-color);
+      margin-top: 16px;
+      letter-spacing: 0.3px;
+      transition: color 0.3s ease;
+      user-select: none;
     }
 
     .result-section {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(0, 0, 0, 0.06);
-      min-height: 100px;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--divider-color);
+      min-height: 96px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      transition: border-color 0.3s ease;
     }
 
     .click-count {
       font-size: 14px;
       font-weight: 600;
-      color: #4a5568;
+      color: var(--count-color);
       margin-bottom: 8px;
+      transition: color 0.3s ease;
     }
 
     .quote-box {
       font-size: 16px;
       font-weight: 500;
-      color: #4c51bf;
+      color: var(--quote-color);
       line-height: 1.5;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 12px;
-      background: rgba(102, 126, 234, 0.08);
+      background: var(--quote-bg);
       opacity: 0;
       transform: translateY(6px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease;
     }
 
     .quote-box.show {
@@ -140,11 +234,21 @@
 <body>
 
   <div class="card">
+    <!-- 右上角主題切換開關 -->
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="切換背景模式" title="切換背景模式">
+      <span id="themeIcon">🌙</span>
+      <span id="themeLabel">深色夜間</span>
+    </button>
+
     <div class="badge">✦ Hello Antigravity</div>
     <h1>Antigravity 破冰成功！</h1>
     <p class="subtitle">點擊下方發光按鈕，開啟今天的美好靈感與滿滿動力 ✨</p>
 
+    <!-- 紫粉漸層發光按鈕 -->
     <button id="actionBtn" class="glow-btn">點我領取鼓勵 🎁</button>
+
+    <!-- 代理人迭代生成小字 -->
+    <p class="agent-tag">⚡ 由 Antigravity 2.0 桌面代理人自動迭代生成</p>
 
     <div class="result-section">
       <div id="counter" class="click-count">尚未點擊按鈕</div>
@@ -153,6 +257,7 @@
   </div>
 
   <script>
+    // 鼓勵小語清單
     const quotes = [
       "每一次嘗試，都是成長的契機！✨",
       "保持好奇心，世界會為你敞開大門！🚀",
@@ -172,23 +277,40 @@
     const counterDisplay = document.getElementById('counter');
     const quoteDisplay = document.getElementById('quote');
 
+    // 點擊按鈕互動
     btn.addEventListener('click', () => {
       count++;
       counterDisplay.textContent = `點擊次數：${count} 次`;
 
-      // 隨機挑選鼓勵小語（避免與上次相同）
+      // 隨機挑選鼓勵小語（避免連續重複）
       let randomIndex;
       do {
         randomIndex = Math.floor(Math.random() * quotes.length);
       } while (quotes.length > 1 && randomIndex === lastIndex);
       lastIndex = randomIndex;
 
-      // 切換動畫效果
+      // 切換淡入動畫
       quoteDisplay.classList.remove('show');
       setTimeout(() => {
         quoteDisplay.textContent = quotes[randomIndex];
         quoteDisplay.classList.add('show');
       }, 100);
+    });
+
+    // 主題模式切換開關 (淺色米白 / 深色夜間)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('theme-dark');
+      if (isDark) {
+        themeIcon.textContent = '☀️';
+        themeLabel.textContent = '淺色米白';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = '深色夜間';
+      }
     });
   </script>
 </body>
